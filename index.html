@@ -82,6 +82,7 @@
               <li><a href="#forms__html5">HTML5 입력 타입</a></li>
               <li><a href="#forms__action">액션 버튼(Action buttons)</a></li>
               <li><a href="#forms__output">출력(Output)</a></li>
+              <li><a href="#forms__fileupload">파일 업로드(File Upload)</a></li>
             </ul>
           </li>
           <li>
@@ -300,7 +301,6 @@ T E X T
             </footer>
           </article>
 
-          <!-- Ruby text example -->
           <article id="text__ruby">
             <header>
               <h2>루비 문자(Ruby Text)</h2>
@@ -314,7 +314,6 @@ T E X T
             </footer>
           </article>
 
-          <!-- BDI/BDO example -->
           <article id="text__bdi_bdo">
             <header>
               <h2>BDI / BDO</h2>
@@ -403,7 +402,6 @@ T E X T
                 브라우저가 video 요소를 지원하지 않습니다.
               </video>
             </div>
-            <!-- Video 동적 컨트롤 -->
             <div class="control-panel">
               <p>
                 <label
@@ -455,7 +453,6 @@ T E X T
                 >브라우저가 canvas를 지원하지 않습니다.</canvas
               >
             </div>
-            <!-- Balls 데모 컨트롤 패널 추가 -->
             <div class="control-panel">
               <p>
                 <button type="button" id="btnRunBalls">Balls 데모 시작</button>
@@ -472,7 +469,6 @@ T E X T
             <div>
               <meter id="testMeter" value="2" min="0" max="10">2 / 10</meter>
             </div>
-            <!-- Meter 동적 컨트롤 -->
             <div class="control-panel">
               <p>
                 <label for="meterMin">Min:</label>
@@ -494,7 +490,6 @@ T E X T
             <div>
               <progress id="testProgress" value="70" max="100">70%</progress>
             </div>
-            <!-- Progress 동적 컨트롤 -->
             <div class="control-panel">
               <p>
                 <label for="progressMax">Max:</label>
@@ -580,6 +575,40 @@ T E X T
                   pattern=".{6,}"
                 />
               </p>
+              <p>
+                <label for="input__email">이메일:</label>
+                <input
+                  id="input__email"
+                  type="email"
+                  placeholder="example@domain.com"
+                  required
+                />
+              </p>
+              <p>
+                <label for="input__url">URL:</label>
+                <input
+                  id="input__url"
+                  type="url"
+                  placeholder="https://example.com"
+                />
+              </p>
+              <p>
+                <label for="input__tel">전화번호:</label>
+                <input
+                  id="input__tel"
+                  type="tel"
+                  placeholder="010-1234-5678"
+                  pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+                />
+              </p>
+              <p>
+                <label for="input__search">검색:</label>
+                <input
+                  id="input__search"
+                  type="search"
+                  placeholder="검색어를 입력하세요"
+                />
+              </p>
             </fieldset>
             <p><a href="#top">[위로]</a></p>
 
@@ -599,7 +628,6 @@ T E X T
                   </optgroup>
                 </select>
               </p>
-              <!-- Select 동적 컨트롤 -->
               <div class="control-panel">
                 <p>
                   <label for="selectSize">Select size:</label>
@@ -774,7 +802,6 @@ T E X T
             </fieldset>
             <p><a href="#top">[위로]</a></p>
 
-            <!-- Output element -->
             <fieldset id="forms__output">
               <legend>출력(Output)</legend>
               <p>
@@ -795,6 +822,16 @@ T E X T
                   document.getElementById("result").value = n1 + n2;
                 }
               </script>
+            </fieldset>
+            <p><a href="#top">[위로]</a></p>
+
+            <fieldset id="forms__fileupload">
+              <legend>파일 업로드(File Upload)</legend>
+              <p>
+                <label for="fileInput">파일 선택:</label>
+                <input type="file" id="fileInput" />
+              </p>
+              <p>선택한 파일: <output id="fileNameOutput">없음</output></p>
             </fieldset>
             <p><a href="#top">[위로]</a></p>
           </form>
@@ -920,6 +957,7 @@ T E X T
       // Dynamic Video Controls
       (function () {
         const video = document.getElementById("testVideo");
+        if (!video) return;
         const videoControls = document.getElementById("videoControls");
         const videoAutoplay = document.getElementById("videoAutoplay");
         const videoLoop = document.getElementById("videoLoop");
@@ -928,27 +966,29 @@ T E X T
         const videoHeight = document.getElementById("videoHeight");
 
         function updateVideoAttributes() {
-          video.controls = videoControls.checked;
-          video.autoplay = videoAutoplay.checked;
-          video.loop = videoLoop.checked;
-          video.muted = videoMuted.checked;
+          video.controls = videoControls && videoControls.checked;
+          video.autoplay = videoAutoplay && videoAutoplay.checked;
+          video.loop = videoLoop && videoLoop.checked;
+          video.muted = videoMuted && videoMuted.checked;
           video.width = parseInt(videoWidth.value, 10) || 320;
           video.height = parseInt(videoHeight.value, 10) || 240;
         }
 
-        [
-          videoControls,
-          videoAutoplay,
-          videoLoop,
-          videoMuted,
-          videoWidth,
-          videoHeight,
-        ].forEach((el) => {
-          el.addEventListener("change", updateVideoAttributes);
-          el.addEventListener("input", updateVideoAttributes);
-        });
+        if (videoControls) {
+          [
+            videoControls,
+            videoAutoplay,
+            videoLoop,
+            videoMuted,
+            videoWidth,
+            videoHeight,
+          ].forEach((el) => {
+            el.addEventListener("change", updateVideoAttributes);
+            el.addEventListener("input", updateVideoAttributes);
+          });
 
-        updateVideoAttributes();
+          updateVideoAttributes();
+        }
       })();
 
       // Dynamic Details Controls
@@ -956,13 +996,15 @@ T E X T
         const detailsOpenToggle = document.getElementById("detailsOpenToggle");
         const testDetails = document.getElementById("testDetails");
 
-        detailsOpenToggle.addEventListener("change", () => {
-          if (detailsOpenToggle.checked) {
-            testDetails.setAttribute("open", "");
-          } else {
-            testDetails.removeAttribute("open");
-          }
-        });
+        if (detailsOpenToggle && testDetails) {
+          detailsOpenToggle.addEventListener("change", () => {
+            if (detailsOpenToggle.checked) {
+              testDetails.setAttribute("open", "");
+            } else {
+              testDetails.removeAttribute("open");
+            }
+          });
+        }
       })();
 
       // Dynamic Meter Controls
@@ -971,6 +1013,7 @@ T E X T
         const meterMin = document.getElementById("meterMin");
         const meterMax = document.getElementById("meterMax");
         const meterVal = document.getElementById("meterVal");
+        if (!meter) return;
 
         function updateMeter() {
           meter.min = parseFloat(meterMin.value) || 0;
@@ -992,6 +1035,7 @@ T E X T
         const progress = document.getElementById("testProgress");
         const progressMax = document.getElementById("progressMax");
         const progressVal = document.getElementById("progressVal");
+        if (!progress) return;
 
         function updateProgress() {
           progress.max = parseFloat(progressMax.value) || 100;
@@ -1007,9 +1051,10 @@ T E X T
         updateProgress();
       })();
 
-      // Balls Demo 추가
+      // Balls Demo
       (function () {
         const canvas = document.getElementById("ballsCanvas");
+        if (!canvas) return;
         const ctx = canvas.getContext("2d");
         let animationId;
 
@@ -1066,15 +1111,32 @@ T E X T
           animate();
         }
 
-        // Balls Demo 시작 버튼
         const btnRunBalls = document.getElementById("btnRunBalls");
-        btnRunBalls.addEventListener("click", () => {
-          if (animationId) {
-            cancelAnimationFrame(animationId);
-          }
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          runBallsDemo();
-        });
+        if (btnRunBalls) {
+          btnRunBalls.addEventListener("click", () => {
+            if (animationId) {
+              cancelAnimationFrame(animationId);
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            runBallsDemo();
+          });
+        }
+      })();
+
+      // 파일 업로드 테스트 스크립트
+      (function () {
+        const fileInput = document.getElementById("fileInput");
+        const fileNameOutput = document.getElementById("fileNameOutput");
+
+        if (fileInput && fileNameOutput) {
+          fileInput.addEventListener("change", () => {
+            if (fileInput.files && fileInput.files.length > 0) {
+              fileNameOutput.textContent = fileInput.files[0].name;
+            } else {
+              fileNameOutput.textContent = "없음";
+            }
+          });
+        }
       })();
     </script>
   </body>
