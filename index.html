@@ -808,15 +808,56 @@ T E X T
               <legend>액션 버튼(Action buttons)</legend>
               <p>
                 <input type="submit" value="Submit" />
+                <span> - 폼 데이터를 제출합니다.</span>
+              </p>
+              <p>
                 <input type="button" value="Button" />
+                <span>
+                  - 아무런 기본 동작 없이 JavaScript로 동작을 정의할 수 있는
+                  일반 버튼입니다.</span
+                >
+              </p>
+              <p>
                 <input type="reset" value="Reset" />
+                <span> - 폼의 모든 입력값을 초기값으로 리셋합니다.</span>
+              </p>
+              <p>
                 <input type="submit" value="Disabled" disabled />
+                <span>
+                  - 비활성화된 제출 버튼으로, 클릭 시 아무런 동작도 하지
+                  않습니다.</span
+                >
               </p>
               <p>
                 <button type="submit">Button Submit</button>
-                <button type="button">Button Only</button>
+                <span>
+                  - 폼 데이터를 제출합니다. 추가적인 HTML 요소(예: 아이콘,
+                  스타일링된 텍스트)를 포함할 수 있는 유연한 버튼입니다.
+                  기본적인 동작은 <code>&lt;input type="submit"&gt;</code>과
+                  동일합니다.
+                </span>
+              </p>
+              <button type="button">Button Only</button>
+              <span>
+                - 기본 동작이 없으며, JavaScript로 동작을 정의할 수 있는 유연한
+                일반 버튼입니다.
+                <code>&lt;input type="button"&gt;</code>과 동일하지만, HTML
+                요소를 포함할 수 있어 스타일링이 더 용이합니다.
+              </span>
+              <p>
                 <button type="reset">Button Reset</button>
+                <span>
+                  - 폼의 모든 입력값을 초기값으로 리셋합니다. 추가적인
+                  스타일링이나 HTML 요소를 포함할 수 있습니다. 기본적인 동작은
+                  <code>&lt;input type="reset"&gt;</code>과 동일합니다.
+                </span>
+              </p>
+              <p>
                 <button type="button" disabled>Button Disabled</button>
+                <span>
+                  - 비활성화된 일반 버튼으로, 클릭 시 아무런 동작도 하지
+                  않습니다.</span
+                >
               </p>
             </fieldset>
             <p><a href="#top">[위로]</a></p>
