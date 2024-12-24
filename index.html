@@ -547,10 +547,10 @@ T E X T
             </header>
             <div>
               <embed
-                src="index.html"
+                src="./contents/pdf/mycat.pdf"
                 width="1200"
                 height="600"
-                type="text/html"
+                type="application/pdf"
               />
             </div>
             <footer>
@@ -563,11 +563,19 @@ T E X T
             </header>
             <div>
               <object
-                data="index.html"
-                type="text/html"
-                width="1200"
+                data="./contents/pdf/mygundam.pdf"
+                type="application/pdf"
+                width="800"
                 height="600"
-              ></object>
+              >
+                <!-- 여기가 대체 콘텐츠(fallback)입니다.
+       브라우저가 PDF를 표시하지 못할 경우 아래 내용이 표시됩니다. -->
+                <p>
+                  PDF 문서를 표시할 수 없습니다.
+                  <a href="./contents/pdf/mygundam.pdf" download>여기</a>에서
+                  PDF를 다운로드하세요.
+                </p>
+              </object>
             </div>
             <footer>
               <p><a href="#top">[위로]</a></p>
