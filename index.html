@@ -349,6 +349,7 @@ T E X T
           <header>
             <h2>임베디드 콘텐츠(Embedded content)</h2>
           </header>
+
           <article id="embedded__images">
             <header>
               <h2>이미지(Images)</h2>
@@ -368,6 +369,7 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
+
           <article id="embedded__bgimages">
             <header>
               <h2>배경 이미지(Background images)</h2>
@@ -383,6 +385,7 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
+
           <article id="embedded__audio">
             <header>
               <h2>오디오(Audio)</h2>
@@ -399,6 +402,7 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
+
           <article id="embedded__video">
             <header>
               <h2>비디오(Video)</h2>
@@ -454,6 +458,7 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
+
           <article id="embedded__canvas">
             <header>
               <h2>캔버스(Canvas)</h2>
@@ -472,6 +477,7 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
+
           <article id="embedded__meter">
             <header>
               <h2>미터(Meter)</h2>
@@ -493,6 +499,7 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
+
           <article id="embedded__progress">
             <header>
               <h2>프로그레스(Progress)</h2>
@@ -512,6 +519,7 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
+
           <article id="embedded__svg">
             <header>
               <h2>인라인 SVG</h2>
@@ -525,6 +533,7 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
+
           <article id="embedded__iframe">
             <header>
               <h2>IFrame</h2>
@@ -541,6 +550,7 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
+
           <article id="embedded__embed">
             <header>
               <h2>Embed</h2>
@@ -557,6 +567,7 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
+
           <article id="embedded__object">
             <header>
               <h2>Object</h2>
@@ -569,7 +580,7 @@ T E X T
                 height="600"
               >
                 <!-- 여기가 대체 콘텐츠(fallback)입니다.
-       브라우저가 PDF를 표시하지 못할 경우 아래 내용이 표시됩니다. -->
+                     브라우저가 PDF를 표시하지 못할 경우 아래 내용이 표시됩니다. -->
                 <p>
                   PDF 문서를 표시할 수 없습니다.
                   <a href="./contents/pdf/mygundam.pdf" download>여기</a>에서
@@ -581,8 +592,24 @@ T E X T
               <p><a href="#top">[위로]</a></p>
             </footer>
           </article>
-        </section>
 
+          <!-- Shadow DOM 테스트 -->
+          <article id="embedded__shadowDom">
+            <header>
+              <h2>Shadow DOM 테스트</h2>
+            </header>
+            <div>
+              <p>
+                아래 영역에 Shadow DOM이 동적으로 붙어 녹색 텍스트가 표시됩니다.
+              </p>
+              <!-- ShadowRoot가 attach될 호스트 요소 -->
+              <div id="shadowHost"></div>
+            </div>
+            <footer>
+              <p><a href="#top">[위로]</a></p>
+            </footer>
+          </article>
+        </section>
         <!-- 폼 섹션 -->
         <section id="forms">
           <header>
@@ -1247,6 +1274,24 @@ T E X T
               fileNameOutput.textContent = "없음";
             }
           });
+        }
+      })();
+
+      // Shadow DOM 테스트
+      (function () {
+        const shadowHost = document.getElementById("shadowHost");
+        if (shadowHost) {
+          // mode: 'open'으로 하면 DevTools 등에서 Shadow DOM 구조 확인 가능
+          const shadowRoot = shadowHost.attachShadow({ mode: "open" });
+          shadowRoot.innerHTML = `
+            <style>
+              p {
+                color: green;
+                font-weight: bold;
+              }
+            </style>
+            <p>이 텍스트는 Shadow DOM 내부에서 렌더링됩니다!</p>
+          `;
         }
       })();
     </script>
